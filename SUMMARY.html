@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Speedrun Summary</title></head>
+<body>
+    <h1>2,000 Step LLM Speedrun Summary</h1>
+    <h2>Architecture & Parameter Optimization</h2>
+    <p>I built an optimized 4-Layer GPT architecture with a hidden dimension of 192 and 6 heads. To comfortably adhere to the 2,000,000 parameter cap while expanding the context window to 320, I enabled weight tying (tying the input embedding weights to the output projection weights) and stripped linear biases. This resulted in a highly expressive model taking up exactly 1,989,312 parameters (99.4% of the budget).</p>
+    
+    <h2>The Tokenizer Strategy</h2>
+    <p>The biggest roadblock to lowering the BPB score was the Devanagari text. Standard byte-level tokenizers evaluate Hindi characters as 3 separate tokens, destroying context windows. I engineered a Python-based Character-Level Tokenizer that assigns single vocabulary IDs to multi-byte characters dynamically parsed from the corpus, while maintaining a strict 0-255 raw byte fallback mechanism. This is fully lossless while shrinking sequence lengths immensely.</p>
+
+    <h2>Training Enhancements</h2>
+    <p>Because we only had 2000 steps, I set dropout to 0.0 to prevent information loss during the short training window. I replaced Adam with AdamW, implemented Gradient Clipping at 1.0, and utilized a Cosine Annealing Learning Rate Scheduler with a 10% warmup phase to maximize convergence.</p>
+    
+    <h2>Human vs. Machine Contribution</h2>
+    <p><strong>Machine Done:</strong> AI generated the PyTorch boilerplate for the Cosine Scheduler, calculated the precise math for the tied weights, and helped script the raw byte-fallback dictionary logic in the tokenizer.<br>
+    <strong>Human Done:</strong> The strategic insight to transition away from a raw byte tokenizer to combat the Devanagari 3-byte expansion, the specific hyperparameter tuning (Block 320, Batch 24, LR 8e-4, Zero Dropout), and calculating the precise parameter limits to maximize the 2M cap.</p>
+</body>
+</html>

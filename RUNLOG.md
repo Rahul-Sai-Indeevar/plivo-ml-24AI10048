@@ -3,7 +3,7 @@
 **Run 1 (Baseline)**
 * Hypothesis: Establish a baseline with the starter code to see how the byte-level tokenizer and default GPT perform.
 * What changed: Unmodified starter code.
-* Dev BPB: ~4.50
+* Dev BPB: 2.35
 * Conclusion: The score is poor. The byte-level tokenizer forces 3 tokens per Devanagari character, blowing up the sequence length and ruining parameter efficiency.
 
 **Run 2 (Char Tokenizer + Mini LLaMA)**

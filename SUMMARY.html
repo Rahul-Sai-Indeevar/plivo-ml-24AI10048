@@ -15,5 +15,8 @@
     <h2>Human vs. Machine Contribution</h2>
     <p><strong>Machine Done:</strong> AI generated the PyTorch boilerplate for the Cosine Scheduler, calculated the precise math for the tied weights, and helped script the raw byte-fallback dictionary logic in the tokenizer.<br>
     <strong>Human Done:</strong> The strategic insight to transition away from a raw byte tokenizer to combat the Devanagari 3-byte expansion, the specific hyperparameter tuning (Block 320, Batch 24, LR 8e-4, Zero Dropout), and calculating the precise parameter limits to maximize the 2M cap.</p>
+
+    <h2>Next-Step Scaling Hypothesis (Compute Constraint Limit)</h2>
+    <p>Given more training time, the theoretical limit of this challenge is a sub-1.50 BPB. This can be achieved by moving from a Character-Level Tokenizer to a 6,000-vocabulary Word-Level Tokenizer. Because BPB scales with token-to-byte compression, predicting whole words drastically lowers the total negative log-likelihood. To support this massive vocabulary under the 2,000,000 parameter cap, I designed a rebalanced architecture (Hidden Dim: 144, Layers: 4, Block Size: 256) resulting in exactly 1,897,488 parameters. This represents the ultimate theoretical optimization for this dataset.</p>
 </body>
 </html>
